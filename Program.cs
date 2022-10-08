@@ -10,8 +10,7 @@ namespace beadando
     {
         static void Main(string[] args)
         {
-            Stopwatch sw = new Stopwatch();
-            int n, k;
+            int n, k, max = -50001, maxind = 0;
             string s = Console.ReadLine();
             n = int.Parse(s.Split()[0]);
             k = int.Parse(s.Split()[1]);
@@ -20,14 +19,28 @@ namespace beadando
             {
                 t[i] = -50001;
             }
-            sw.Start();
             for(int i = 0; i < n; i++)
             {
                 t[i % k] = int.Parse(Console.ReadLine());
-                Console.WriteLine(t.Max());
+                if (maxind == (i % k))
+                {
+                    for (int j = 0; j < k; j++)
+                    {
+                        if (t[j] > max)
+                        {
+                            maxind = j;
+                            max = t[j];
+                        }
+                    }
+                }
+                if(max < t[i % k])
+                {
+                    max = t[i % k];
+                    maxind = i % k;
+                }
+
+                Console.WriteLine(max);
             }
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
         }
     }
 }
